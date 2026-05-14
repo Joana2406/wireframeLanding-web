@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wireframe — Music App Landing Page</title>
+  <style>
+    /* ─── RESET & TOKENS ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --c0:  #ffffff;
+      --c1:  #f5f5f5;
+      --c2:  #e8e8e8;
+      --c3:  #d0d0d0;
+      --c4:  #b0b0b0;
+      --c5:  #888888;
+      --c6:  #606060;
+      --c7:  #404040;
+      --c8:  #202020;
+      --c9:  #0d0d0d;
+
+      --border: 1.5px dashed var(--c4);
+      --radius: 4px;
+      --font: 'Courier New', Courier, monospace;
+      --label-size: 10px;
+      --gap: 16px;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--c1);
+      color: var(--c7);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    /* ─── WIREFRAME HELPERS ──────────────────────────────────── */
+    .wf-label {
+      display: inline-block;
+      font-size: var(--label-size);
+      font-family: var(--font);
+      color: var(--c5);
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      margin-bottom: 6px;
+    }
+
+    .placeholder {
+      background: var(--c2);
+      border: var(--border);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--c5);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      text-align: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 24px;
+      border: 1.5px solid var(--c7);
+      border-radius: var(--radius);
+      background: var(--c7);
+      color: var(--c0);
+      font-family: var(--font);
+      font-size: 11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      cursor: default;
+    }
+
+    .btn.ghost {
+      background: transparent;
+      color: var(--c7);
+    }
+
+    .btn.large {
+      padding: 14px 36px;
+      font-size: 12px;
+    }
+
+    .btn.outline-light {
+      background: transparent;
+      color: var(--c3);
+      border-color: var(--c5);
+    }
+
+    .section-tag {
+      display: inline-block;
+      font-size: 9px;
+      font-family: var(--font);
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--c5);
+      border: 1px solid var(--c3);
+      padding: 3px 8px;
+      border-radius: 2px;
+      margin-bottom: 12px;
+    }
+
+    /* ─── LAYOUT WRAPPER ─────────────────────────────────────── */
+    .page { max-width: 1280px; margin: 0 auto; }
+
+    /* ══════════════════════════════════════════════════════════
+       NAVBAR
+    ══════════════════════════════════════════════════════════ */
+    .navbar {
+      background: var(--c0);
+      border-bottom: var(--border);
+      padding: 0 40px;
+      height: 64px;
+      display: grid;
+      grid-template-columns: 180px 1fr auto;
+      align-items: center;
+      gap: var(--gap);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-logo .logo-icon {
+      width: 32px; height: 32px;
+      background: var(--c8);
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+
+    .nav-logo .logo-text {
+      height: 12px;
+      width: 80px;
+      background: var(--c3);
+      border-radius: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      justify-content: center;
+    }
+
+    .nav-link {
+      height: 10px;
+      border-radius: 2px;
+      background: var(--c3);
+    }
+
+    .nav-actions { display: flex; gap: 10px; align-items: center; }
+
+    /* ══════════════════════════════════════════════════════════
+       HERO
+    ══════════════════════════════════════════════════════════ */
+    .hero {
+      background: var(--c8);
+      color: var(--c1);
+      padding: 100px 40px 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      border-bottom: var(--border);
+    }
+
+    .hero-copy { display: flex; flex-direction: column; gap: 24px; }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero-eyebrow .dot {
+      width: 8px; height: 8px;
+      background: var(--c4);
+      border-radius: 50%;
+    }
+
+    .hero-eyebrow span {
+      font-size: 10px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--c4);
+    }
+
+    .hero-headline { display: flex; flex-direction: column; gap: 10px; }
+
+    .h-line {
+      height: 18px;
+      border-radius: 2px;
+      background: var(--c0);
+      opacity: .85;
+    }
+
+    .h-line.short { width: 65%; opacity: .55; }
+
+    .hero-sub { display: flex; flex-direction: column; gap: 8px; }
+
+    .sub-line {
+      height: 10px;
+      border-radius: 2px;
+      background: var(--c5);
+    }
+
+    .sub-line.s { width: 70%; }
+
+    .hero-actions { display: flex; gap: 12px; }
+
+    .hero-visual { position: relative; }
+
+    .hero-phone {
+      background: var(--c7);
+      border: 2px solid var(--c6);
+      border-radius: 24px;
+      width: 260px;
+      height: 480px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 16px;
+      gap: 12px;
+      position: relative;
+    }
+
+    .phone-notch {
+      width: 60px; height: 6px;
+      background: var(--c5);
+      border-radius: 3px;
+    }
+
+    .phone-waveform {
+      flex: 1;
+      width: 100%;
+      background: var(--c6);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      padding: 0 16px;
+    }
+
+    .bar {
+      flex: 1;
+      border-radius: 2px;
+      background: var(--c4);
+    }
+
+    .phone-controls {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+    }
+
+    .ctrl {
+      height: 28px;
+      border-radius: 4px;
+      background: var(--c5);
+    }
+
+    .ctrl.primary { background: var(--c3); }
+
+    .phone-track {
+      width: 100%;
+      height: 44px;
+      background: var(--c6);
+      border-radius: 8px;
+    }
+
+    .hero-badge {
+      position: absolute;
+      top: 60px; right: -20px;
+      background: var(--c2);
+      border: var(--border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      min-width: 140px;
+    }
+
+    .badge-line {
+      height: 8px; border-radius: 2px;
+      background: var(--c5);
+      margin-bottom: 6px;
+    }
+    .badge-line.s { width: 60%; }
+
+    .hero-stat {
+      position: absolute;
+      bottom: 60px; left: -24px;
+      background: var(--c2);
+      border: var(--border);
+      border-radius: 8px;
+      padding: 14px 18px;
+      min-width: 130px;
+    }
+
+    .stat-num {
+      height: 22px; border-radius: 3px;
+      background: var(--c7);
+      margin-bottom: 6px;
+      width: 80px;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       FEATURES
+    ══════════════════════════════════════════════════════════ */
+    .features {
+      background: var(--c0);
+      padding: 80px 40px;
+      border-bottom: var(--border);
+    }
+
+    .section-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .section-title { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+
+    .title-bar {
+      height: 16px; border-radius: 2px;
+      background: var(--c8);
+    }
+
+    .title-bar.w60 { width: 320px; }
+    .title-bar.w40 { width: 200px; opacity: .5; }
+
+    .section-desc { display: flex; flex-direction: column; align-items: center; gap: 6px; margin-top: 4px; }
+
+    .desc-line {
+      height: 9px; border-radius: 2px;
+      background: var(--c3);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .feature-card {
+      background: var(--c1);
+      border: var(--border);
+      border-radius: 8px;
+      padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .feature-icon {
+      width: 48px; height: 48px;
+      background: var(--c3);
+      border-radius: 8px;
+    }
+
+    .feature-title {
+      height: 13px; border-radius: 2px;
+      background: var(--c7);
+      width: 75%;
+    }
+
+    .feature-body { display: flex; flex-direction: column; gap: 6px; }
+
+    .feat-line {
+      height: 8px; border-radius: 2px;
+      background: var(--c3);
+    }
+
+    .feat-line.s { width: 80%; }
+
+    /* ══════════════════════════════════════════════════════════
+       TESTIMONIALS
+    ══════════════════════════════════════════════════════════ */
+    .testimonials {
+      background: var(--c1);
+      padding: 80px 40px;
+      border-bottom: var(--border);
+    }
+
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .testi-card {
+      background: var(--c0);
+      border: var(--border);
+      border-radius: 8px;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .stars { display: flex; gap: 4px; }
+    .star { width: 14px; height: 14px; background: var(--c4); border-radius: 2px; }
+
+    .testi-quote { display: flex; flex-direction: column; gap: 6px; }
+
+    .q-line {
+      height: 9px; border-radius: 2px;
+      background: var(--c3);
+    }
+
+    .q-line.s { width: 70%; }
+
+    .testi-author { display: flex; align-items: center; gap: 12px; border-top: 1px solid var(--c2); padding-top: 16px; }
+
+    .avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--c3);
+      flex-shrink: 0;
+    }
+
+    .author-info { display: flex; flex-direction: column; gap: 5px; }
+
+    .author-name {
+      height: 9px; border-radius: 2px;
+      background: var(--c6);
+      width: 80px;
+    }
+
+    .author-role {
+      height: 8px; border-radius: 2px;
+      background: var(--c3);
+      width: 60px;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       CTA
+    ══════════════════════════════════════════════════════════ */
+    .cta {
+      background: var(--c8);
+      padding: 100px 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      border-bottom: var(--border);
+    }
+
+    .cta-copy { display: flex; flex-direction: column; gap: 24px; }
+
+    .cta-title { display: flex; flex-direction: column; gap: 10px; }
+
+    .ct-line {
+      height: 18px; border-radius: 2px;
+      background: var(--c0);
+      opacity: .85;
+    }
+
+    .ct-line.s { width: 55%; opacity: .55; }
+
+    .cta-sub { display: flex; flex-direction: column; gap: 6px; }
+
+    .cs-line {
+      height: 9px; border-radius: 2px;
+      background: var(--c5);
+    }
+
+    .cs-line.s { width: 75%; }
+
+    .cta-form { display: flex; gap: 10px; align-items: center; }
+
+    .input-field {
+      flex: 1;
+      height: 44px;
+      background: var(--c7);
+      border: 1.5px solid var(--c6);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+    }
+
+    .input-placeholder {
+      height: 8px; width: 120px;
+      border-radius: 2px;
+      background: var(--c5);
+    }
+
+    .cta-stores { display: flex; gap: 12px; }
+
+    .store-badge {
+      background: var(--c7);
+      border: 1.5px solid var(--c6);
+      border-radius: 8px;
+      padding: 10px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 120px;
+    }
+
+    .store-label {
+      height: 7px; border-radius: 2px;
+      background: var(--c5);
+      width: 50px;
+    }
+
+    .store-name {
+      height: 10px; border-radius: 2px;
+      background: var(--c3);
+      width: 80px;
+    }
+
+    .cta-visual {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .cta-screen {
+      width: 100%;
+      height: 300px;
+      background: var(--c7);
+      border: 2px solid var(--c6);
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      padding: 24px;
+      gap: 14px;
+    }
+
+    .screen-row {
+      height: 12px; border-radius: 3px;
+      background: var(--c5);
+    }
+
+    .screen-row.wide { width: 100%; }
+    .screen-row.med  { width: 70%; }
+    .screen-row.sm   { width: 45%; }
+
+    .screen-wave {
+      flex: 1;
+      background: var(--c6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      padding: 0 16px;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════════════════════════ */
+    .footer {
+      background: var(--c9);
+      color: var(--c4);
+      padding: 60px 40px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+    }
+
+    .footer-brand { display: flex; flex-direction: column; gap: 16px; }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-logo-icon {
+      width: 28px; height: 28px;
+      background: var(--c6);
+      border-radius: 4px;
+    }
+
+    .footer-logo-text {
+      height: 10px; width: 70px;
+      border-radius: 2px;
+      background: var(--c6);
+    }
+
+    .footer-tagline { display: flex; flex-direction: column; gap: 6px; }
+
+    .ft-line {
+      height: 8px; border-radius: 2px;
+      background: var(--c7);
+    }
+
+    .ft-line.s { width: 70%; }
+
+    .footer-socials { display: flex; gap: 10px; }
+
+    .social-icon {
+      width: 30px; height: 30px;
+      border-radius: 4px;
+      background: var(--c7);
+    }
+
+    .footer-col { display: flex; flex-direction: column; gap: 16px; }
+
+    .footer-col-title {
+      height: 9px; width: 60px;
+      border-radius: 2px;
+      background: var(--c6);
+      margin-bottom: 4px;
+    }
+
+    .footer-link {
+      height: 8px; border-radius: 2px;
+      background: var(--c7);
+    }
+
+    .footer-link.s { width: 60%; }
+
+    .footer-bottom {
+      border-top: 1px solid var(--c8);
+      padding-top: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-legal { display: flex; gap: 8px; }
+
+    .legal-item {
+      height: 8px; width: 80px;
+      border-radius: 2px;
+      background: var(--c7);
+    }
+
+    .footer-copy {
+      height: 8px; width: 140px;
+      border-radius: 2px;
+      background: var(--c7);
+    }
+
+    /* ─── ANNOTATION OVERLAY ─────────────────────────────────── */
+    .ann {
+      position: sticky;
+      top: 64px;
+      z-index: 50;
+      pointer-events: none;
+    }
+
+    .section-annot {
+      position: relative;
+    }
+
+    .annot-chip {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      background: var(--c4);
+      color: var(--c0);
+      font-size: 9px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 2px;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ══ NAVBAR ══ -->
+  <div class="section-annot">
+    <span class="annot-chip">Navbar</span>
+    <nav class="navbar">
+      <div class="nav-logo">
+        <div class="logo-icon"></div>
+        <div class="logo-text"></div>
+      </div>
+      <div class="nav-links">
+        <div class="nav-link" style="width:48px"></div>
+        <div class="nav-link" style="width:64px"></div>
+        <div class="nav-link" style="width:56px"></div>
+        <div class="nav-link" style="width:72px"></div>
+      </div>
+      <div class="nav-actions">
+        <div class="btn ghost">Log in</div>
+        <div class="btn">Sign up</div>
+      </div>
+    </nav>
+  </div>
+
+  <!-- ══ HERO ══ -->
+  <div class="section-annot">
+    <span class="annot-chip">Hero</span>
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="hero-eyebrow">
+          <div class="dot"></div>
+          <span>New release — v2.0</span>
+        </div>
+        <div class="hero-headline">
+          <div class="h-line" style="width:100%"></div>
+          <div class="h-line" style="width:90%"></div>
+          <div class="h-line short"></div>
+        </div>
+        <div class="hero-sub">
+          <div class="sub-line" style="width:100%"></div>
+          <div class="sub-line" style="width:95%"></div>
+          <div class="sub-line s"></div>
+        </div>
+        <div class="hero-actions">
+          <div class="btn large">Try free</div>
+          <div class="btn large" style="background:transparent;color:var(--c3);border-color:var(--c5)">Watch demo</div>
+        </div>
+        <div style="display:flex;gap:20px;align-items:center;margin-top:8px;">
+          <div style="height:8px;width:110px;background:var(--c5);border-radius:2px"></div>
+          <div style="height:8px;width:80px;background:var(--c5);border-radius:2px"></div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-phone">
+          <div class="phone-notch"></div>
+          <div class="phone-track"></div>
+          <div class="phone-waveform">
+            <div class="bar" style="height:35%"></div>
+            <div class="bar" style="height:60%"></div>
+            <div class="bar" style="height:80%"></div>
+            <div class="bar" style="height:50%"></div>
+            <div class="bar" style="height:90%"></div>
+            <div class="bar" style="height:65%"></div>
+            <div class="bar" style="height:40%"></div>
+            <div class="bar" style="height:75%"></div>
+            <div class="bar" style="height:55%"></div>
+            <div class="bar" style="height:85%"></div>
+            <div class="bar" style="height:45%"></div>
+            <div class="bar" style="height:70%"></div>
+          </div>
+          <div class="phone-controls">
+            <div class="ctrl"></div>
+            <div class="ctrl"></div>
+            <div class="ctrl primary"></div>
+            <div class="ctrl"></div>
+            <div class="ctrl"></div>
+          </div>
+        </div>
+        <div class="hero-badge">
+          <div class="badge-line" style="width:100%"></div>
+          <div class="badge-line s"></div>
+          <div class="badge-line" style="width:75%;margin-bottom:0"></div>
+        </div>
+        <div class="hero-stat">
+          <div class="stat-num"></div>
+          <div style="height:8px;width:90px;border-radius:2px;background:var(--c5)"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ══ FEATURES ══ -->
+  <div class="section-annot">
+    <span class="annot-chip">Features</span>
+    <section class="features">
+      <div class="section-header">
+        <span class="section-tag">Features</span>
+        <div class="section-title">
+          <div class="title-bar w60"></div>
+          <div class="title-bar w40"></div>
+        </div>
+        <div class="section-desc">
+          <div class="desc-line" style="width:360px"></div>
+          <div class="desc-line" style="width:280px"></div>
+        </div>
+      </div>
+
+      <div class="features-grid">
+        <!-- card 1 -->
+        <div class="feature-card">
+          <div class="feature-icon"></div>
+          <div class="feature-title"></div>
+          <div class="feature-body">
+            <div class="feat-line" style="width:100%"></div>
+            <div class="feat-line" style="width:90%"></div>
+            <div class="feat-line s"></div>
+          </div>
+          <div class="wf-label">→ Learn more</div>
+        </div>
+        <!-- card 2 -->
+        <div class="feature-card" style="background:var(--c8);border-color:var(--c6);">
+          <div class="feature-icon" style="background:var(--c6)"></div>
+          <div class="feature-title" style="background:var(--c3)"></div>
+          <div class="feature-body">
+            <div class="feat-line" style="width:100%;background:var(--c6)"></div>
+            <div class="feat-line" style="width:90%;background:var(--c6)"></div>
+            <div class="feat-line" style="width:70%;background:var(--c6)"></div>
+          </div>
+          <div class="wf-label" style="color:var(--c4)">→ Learn more</div>
+        </div>
+        <!-- card 3 -->
+        <div class="feature-card">
+          <div class="feature-icon"></div>
+          <div class="feature-title"></div>
+          <div class="feature-body">
+            <div class="feat-line" style="width:100%"></div>
+            <div class="feat-line" style="width:85%"></div>
+            <div class="feat-line s"></div>
+          </div>
+          <div class="wf-label">→ Learn more</div>
+        </div>
+        <!-- card 4 -->
+        <div class="feature-card">
+          <div class="feature-icon"></div>
+          <div class="feature-title"></div>
+          <div class="feature-body">
+            <div class="feat-line" style="width:100%"></div>
+            <div class="feat-line" style="width:75%"></div>
+          </div>
+          <div class="wf-label">→ Learn more</div>
+        </div>
+        <!-- card 5 -->
+        <div class="feature-card">
+          <div class="feature-icon"></div>
+          <div class="feature-title"></div>
+          <div class="feature-body">
+            <div class="feat-line" style="width:100%"></div>
+            <div class="feat-line" style="width:90%"></div>
+            <div class="feat-line s"></div>
+          </div>
+          <div class="wf-label">→ Learn more</div>
+        </div>
+        <!-- card 6 -->
+        <div class="feature-card">
+          <div class="feature-icon"></div>
+          <div class="feature-title"></div>
+          <div class="feature-body">
+            <div class="feat-line" style="width:100%"></div>
+            <div class="feat-line" style="width:80%"></div>
+          </div>
+          <div class="wf-label">→ Learn more</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ══ TESTIMONIALS ══ -->
+  <div class="section-annot">
+    <span class="annot-chip">Testimonials</span>
+    <section class="testimonials">
+      <div class="section-header">
+        <span class="section-tag">Testimonials</span>
+        <div class="section-title">
+          <div class="title-bar w60"></div>
+          <div class="title-bar w40"></div>
+        </div>
+        <div class="section-desc">
+          <div class="desc-line" style="width:300px"></div>
+          <div class="desc-line" style="width:240px"></div>
+        </div>
+      </div>
+
+      <div class="testi-grid">
+        <!-- card 1 -->
+        <div class="testi-card">
+          <div class="stars">
+            <div class="star"></div><div class="star"></div><div class="star"></div>
+            <div class="star"></div><div class="star"></div>
+          </div>
+          <div class="testi-quote">
+            <div class="q-line" style="width:100%"></div>
+            <div class="q-line" style="width:95%"></div>
+            <div class="q-line s"></div>
+          </div>
+          <div class="testi-author">
+            <div class="avatar"></div>
+            <div class="author-info">
+              <div class="author-name"></div>
+              <div class="author-role"></div>
+            </div>
+          </div>
+        </div>
+        <!-- card 2 -->
+        <div class="testi-card" style="background:var(--c8);border-color:var(--c6);">
+          <div class="stars">
+            <div class="star" style="background:var(--c6)"></div>
+            <div class="star" style="background:var(--c6)"></div>
+            <div class="star" style="background:var(--c6)"></div>
+            <div class="star" style="background:var(--c6)"></div>
+            <div class="star" style="background:var(--c6)"></div>
+          </div>
+          <div class="testi-quote">
+            <div class="q-line" style="width:100%;background:var(--c6)"></div>
+            <div class="q-line" style="width:90%;background:var(--c6)"></div>
+            <div class="q-line" style="width:60%;background:var(--c6)"></div>
+          </div>
+          <div class="testi-author" style="border-color:var(--c7)">
+            <div class="avatar" style="background:var(--c6)"></div>
+            <div class="author-info">
+              <div class="author-name" style="background:var(--c5)"></div>
+              <div class="author-role" style="background:var(--c6)"></div>
+            </div>
+          </div>
+        </div>
+        <!-- card 3 -->
+        <div class="testi-card">
+          <div class="stars">
+            <div class="star"></div><div class="star"></div><div class="star"></div>
+            <div class="star"></div><div class="star"></div>
+          </div>
+          <div class="testi-quote">
+            <div class="q-line" style="width:100%"></div>
+            <div class="q-line" style="width:85%"></div>
+            <div class="q-line s"></div>
+          </div>
+          <div class="testi-author">
+            <div class="avatar"></div>
+            <div class="author-info">
+              <div class="author-name"></div>
+              <div class="author-role"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ══ CTA ══ -->
+  <div class="section-annot">
+    <span class="annot-chip">CTA</span>
+    <section class="cta">
+      <div class="cta-copy">
+        <span class="section-tag" style="color:var(--c4);border-color:var(--c6);">Get started</span>
+        <div class="cta-title">
+          <div class="ct-line" style="width:100%"></div>
+          <div class="ct-line" style="width:85%"></div>
+          <div class="ct-line s"></div>
+        </div>
+        <div class="cta-sub">
+          <div class="cs-line" style="width:100%"></div>
+          <div class="cs-line s"></div>
+        </div>
+        <div class="cta-form">
+          <div class="input-field">
+            <div class="input-placeholder"></div>
+          </div>
+          <div class="btn large">Subscribe</div>
+        </div>
+        <div class="cta-stores">
+          <div class="store-badge">
+            <div class="store-label"></div>
+            <div class="store-name"></div>
+          </div>
+          <div class="store-badge">
+            <div class="store-label"></div>
+            <div class="store-name"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-visual">
+        <div class="cta-screen">
+          <div class="screen-row wide"></div>
+          <div class="screen-row med"></div>
+          <div class="screen-wave">
+            <div class="bar" style="flex:1;height:30%;background:var(--c5)"></div>
+            <div class="bar" style="flex:1;height:70%;background:var(--c5)"></div>
+            <div class="bar" style="flex:1;height:50%;background:var(--c5)"></div>
+            <div class="bar" style="flex:1;height:85%;background:var(--c5)"></div>
+            <div class="bar" style="flex:1;height:40%;background:var(--c5)"></div>
+            <div class="bar" style="flex:1;height:65%;background:var(--c5)"></div>
+            <div class="bar" style="flex:1;height:90%;background:var(--c5)"></div>
+            <div class="bar" style="flex:1;height:55%;background:var(--c5)"></div>
+          </div>
+          <div class="screen-row sm"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ══ FOOTER ══ -->
+  <div class="section-annot">
+    <span class="annot-chip" style="background:var(--c6)">Footer</span>
+    <footer class="footer">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <div class="footer-logo-icon"></div>
+            <div class="footer-logo-text"></div>
+          </div>
+          <div class="footer-tagline">
+            <div class="ft-line" style="width:100%"></div>
+            <div class="ft-line s"></div>
+          </div>
+          <div class="footer-socials">
+            <div class="social-icon"></div>
+            <div class="social-icon"></div>
+            <div class="social-icon"></div>
+            <div class="social-icon"></div>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <div class="footer-col-title"></div>
+          <div class="footer-link" style="width:80%"></div>
+          <div class="footer-link" style="width:90%"></div>
+          <div class="footer-link s"></div>
+          <div class="footer-link" style="width:75%"></div>
+        </div>
+
+        <div class="footer-col">
+          <div class="footer-col-title"></div>
+          <div class="footer-link" style="width:70%"></div>
+          <div class="footer-link" style="width:85%"></div>
+          <div class="footer-link s"></div>
+          <div class="footer-link" style="width:80%"></div>
+        </div>
+
+        <div class="footer-col">
+          <div class="footer-col-title"></div>
+          <div class="footer-link" style="width:90%"></div>
+          <div class="footer-link s"></div>
+          <div class="footer-link" style="width:75%"></div>
+          <div class="footer-link" style="width:85%"></div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-copy"></div>
+        <div class="footer-legal">
+          <div class="legal-item"></div>
+          <div class="legal-item" style="width:60px"></div>
+          <div class="legal-item" style="width:70px"></div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+</div><!-- /page -->
+</body>
+</html>
